@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nhom1.kttstoreapp.fragment.BoardFragment;
 import com.nhom1.kttstoreapp.fragment.HomeFragment;
 import com.nhom1.kttstoreapp.fragment.ProductListFragment;
 
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.nav_home) {
                 selectedFragment = new HomeFragment();
             } else if (itemId == R.id.nav_cart) {
-                // Placeholder
-                selectedFragment = new ProductListFragment(); // Reusing for demo
+                // Board/Task Management
+                selectedFragment = new BoardFragment();
             } else if (itemId == R.id.nav_orders) {
                 selectedFragment = new ProductListFragment();
             } else if (itemId == R.id.nav_notification) {

@@ -29,6 +29,7 @@
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".VerifyOtpActivity" />
         <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".TaskDetailActivity" />
     </application>
 
 </manifest>
