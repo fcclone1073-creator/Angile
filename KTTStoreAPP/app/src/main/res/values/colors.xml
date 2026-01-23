@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="textColorPrimary">#333333</color>
+    <color name="textColorSecondary">#757575</color>
+    <color name="inputBorder">#E0E0E0</color>
+    <color name="blue_btn">#2196F3</color>
+    <color name="blue_gradient_start">#4DA8F5</color>
+    <color name="blue_gradient_end">#2196F3</color>
+    
+    <!-- New Colors -->
+    <color name="nav_item_selected_bg">#E3F2FD</color>
+    <color name="nav_item_unselected_icon">#757575</color>
+</resources>
