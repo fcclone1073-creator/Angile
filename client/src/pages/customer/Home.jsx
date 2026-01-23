@@ -31,7 +31,6 @@ const Home = () => {
   const banners = getBannerData(theme);
   const flashSaleData = getFlashSaleData(theme || 'default'); // Thêm giá trị mặc định
 
-  // States cho Flash Sale
   const [flashSaleProducts, setFlashSaleProducts] = useState([]);
   const [flashSaleInfo, setFlashSaleInfo] = useState(null);
   const [isFlashSaleActive, setIsFlashSaleActive] = useState(false);
@@ -193,7 +192,7 @@ const Home = () => {
     if (!isFlashSaleActive) return originalPrice;
     return Math.round(calculateDiscountPrice(originalPrice, discount) * 100) / 100;
   };
-
+//blabla
   // Function to handle email subscription
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -214,7 +213,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col">
-      {/* Dòng chạy thông báo */}
+      {/* hiazzz*/}
       <div className={`w-full py-3 ${
         theme === 'tet' 
           ? 'bg-gradient-to-r from-red-700/90 to-red-600/90 border-y border-yellow-300/30' 
