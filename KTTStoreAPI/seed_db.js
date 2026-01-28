@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Product = require('./models/Product');
 const Category = require('./models/Category');
+const User = require('./models/User');
+const bcrypt = require('bcryptjs');
 
 const seedData = async () => {
     try {
@@ -9,6 +11,7 @@ const seedData = async () => {
 
         await Category.deleteMany({});
         await Product.deleteMany({});
+        await User.deleteMany({});
         console.log('Cleared old data');
 
         const cat1 = new Category({ name: 'Chân váy chữ A', image: 'https://img.freepik.com/free-photo/young-woman-beautiful-dress-hat-posing_1303-17517.jpg' });
@@ -73,7 +76,36 @@ const seedData = async () => {
         ];
 
         await Product.insertMany(products);
+        await Product.insertMany(products);
         console.log('Products created');
+
+        // Create Users
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash('123456', salt);
+
+        const adminUser = new User({
+            name: 'Admin User',
+            email: 'admin@kttstore.com',
+            password: hashedPassword,
+            phone: '0987654321',
+            gender: 'Nam',
+            role: 'admin'
+        });
+
+        const normalUser = new User({
+            name: 'Khang Khach Hang',
+            email: 'user@kttstore.com',
+            password: hashedPassword,
+            phone: '0123456789',
+            gender: 'Nam',
+            role: 'user'
+        });
+
+        await adminUser.save();
+        await normalUser.save();
+        console.log('Users created:');
+        console.log(' - Admin: admin@kttstore.com / 123456');
+        console.log(' - User: user@kttstore.com / 123456');
 
     } catch (err) {
         console.error('Error:', err);

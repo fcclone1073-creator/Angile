@@ -18,7 +18,7 @@ router.get('/health', (req, res) => {
 // @desc    Register new user
 // @access  Public
 router.post('/register', async (req, res) => {
-    const { name, email, password, phone, gender } = req.body;
+    const { name, email, password, phone, gender, role } = req.body;
 
     try {
         let user = await User.findOne({ email });
@@ -31,7 +31,8 @@ router.post('/register', async (req, res) => {
             email,
             password,
             phone,
-            gender
+            gender,
+            role: role || 'user'
         });
 
         // Hash password

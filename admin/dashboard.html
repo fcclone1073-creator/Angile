@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - KTT Store</title>
+    <!-- Icons from Lucide/Feather equivalent for vanilla (using FontAwesome or similar via CDN for ease) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fas fa-store" style="margin-right: 10px;"></i>
+                KTT STORE
+            </div>
+
+            <nav class="menu">
+                <a href="#" class="menu-item active" onclick="loadView('dashboard', this)">
+                    <i class="fas fa-th-large"></i> Tổng quan
+                </a>
+                <a href="#" class="menu-item" onclick="loadView('customers', this)">
+                    <i class="fas fa-users"></i> Quản lý khách hàng
+                </a>
+                <a href="#" class="menu-item" onclick="loadView('products', this)">
+                    <i class="fas fa-box"></i> Quản lý sản phẩm
+                </a>
+                <a href="#" class="menu-item" onclick="loadView('orders', this)">
+                    <i class="fas fa-shopping-cart"></i> Quản lý đơn hàng
+                </a>
+                <a href="#" class="menu-item" onclick="loadView('discounts', this)">
+                    <i class="fas fa-ticket-alt"></i> Quản lý mã giảm giá
+                </a>
+                <a href="#" class="menu-item" onclick="loadView('promotions', this)">
+                    <i class="fas fa-bullhorn"></i> Quản lý khuyến mãi
+                </a>
+                <a href="#" class="menu-item" onclick="loadView('notifications', this)">
+                    <i class="fas fa-bell"></i> Quản lý thông báo
+                </a>
+                <a href="#" class="menu-item role-admin hidden" onclick="loadView('settings', this)">
+                    <i class="fas fa-cog"></i> Cài đặt hệ thống
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="menu-item">
+                    <i class="fas fa-moon"></i> Chế độ tối
+                </a>
+                <a href="#" class="menu-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="breadcrumb" style="font-size: 0.9rem; color: #777;">Dashboard > <span
+                        style="color: var(--secondary-color); font-weight: 600;">Dashboard</span></div>
+                <!-- User info removed from right side to match screenshot clean look, or keep if preferred. Screenshot shows "Dashboard > Dashboard" on left. -->
+                <!-- We keep user info for utility but make it subtle -->
+                <div class="user-info flex items-center">
+                    <span id="userName" style="font-weight: 500; margin-right: 10px;">Admin</span>
+                </div>
+            </header>
+
+            <!-- Dynamic Content Area -->
+            <div id="content" class="content-area">
+                <!-- Content will be loaded here via JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Templates for Views (Hidden) -->
+    <template id="tpl-dashboard">
+        <h2 class="mb-4" style="font-size: 1.75rem; font-weight: 700;">Tổng quan</h2>
+
+        <!-- Row 1 -->
+        <div class="card-grid mb-4">
+            <!-- Total Products -->
+            <div class="card flex justify-between items-center">
+                <div>
+                    <div class="card-title">Tổng sản phẩm</div>
+                    <div class="card-value">112</div>
+                    <div class="text-sm text-gray-500 mt-1">92 còn hàng</div>
+                </div>
+                <div class="icon-box bg-blue-100 text-blue-600">
+                    <i class="fas fa-box"></i>
+                </div>
+            </div>
+
+            <!-- Out of stock -->
+            <div class="card flex justify-between items-center">
+                <div>
+                    <div class="card-title">Sản phẩm hết hàng</div>
+                    <div class="card-value">20</div>
+                    <div class="text-sm text-gray-500 mt-1">17.9%</div>
+                </div>
+                <div class="icon-box bg-red-100 text-red-600">
+                    <i class="fas fa-trash"></i>
+                </div>
+            </div>
+
+            <!-- Promotion -->
+            <div class="card flex justify-between items-center">
+                <div>
+                    <div class="card-title">Đang khuyến mãi</div>
+                    <div class="card-value">112</div>
+                    <div class="text-sm text-gray-500 mt-1">100.0%</div>
+                </div>
+                <div class="icon-box bg-green-100 text-green-600">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="card-grid mb-4">
+            <!-- Users -->
+            <div class="card flex justify-between items-center">
+                <div>
+                    <div class="card-title">Tổng người dùng</div>
+                    <div class="card-value">16</div>
+                    <div class="text-sm text-gray-500 mt-1">6 người dùng mới tháng này</div>
+                </div>
+                <div class="icon-box bg-purple-100 text-purple-600">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+
+            <!-- Orders -->
+            <div class="card flex justify-between items-center">
+                <div>
+                    <div class="card-title">Tổng đơn hàng</div>
+                    <div class="card-value">194</div>
+                    <div class="text-sm text-gray-500 mt-1">99 đã thanh toán</div>
+                </div>
+                <div class="icon-box bg-orange-100 text-orange-600">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+            </div>
+
+            <!-- Revenue -->
+            <div class="card flex justify-between items-center">
+                <div>
+                    <div class="card-title">Doanh thu</div>
+                    <div class="card-value">271.2M</div>
+                    <div class="text-sm text-gray-500 mt-1">99/194 đơn đã thanh toán</div>
+                </div>
+                <div class="icon-box bg-green-100 text-green-600">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: Complex Stats -->
+        <div class="card-grid">
+            <!-- Coupons -->
+            <div class="card">
+                <h3 class="font-bold mb-3" style="font-size: 1rem;">Khuyến mãi & Mã giảm giá</h3>
+                <div class="flex justify-between mb-2">
+                    <div>
+                        <div class="text-sm text-gray-500">Tổng số mã giảm giá</div>
+                        <div class="text-xl font-bold">12</div>
+                        <div class="mt-2 text-sm"><span class="text-green-600">9 đang hoạt động</span> <span
+                                class="text-red-500 ml-2">3 đã hết hạn</span></div>
+                        <div class="mt-2 text-sm text-gray-500">Lượt sử dụng</div>
+                        <div class="font-bold">3</div>
+                    </div>
+                    <div class="text-sm">
+                        <div class="flex justify-between mb-1"><span>Loại giảm giá</span></div>
+                        <div class="flex justify-between mb-1"><span class="text-gray-500">Giảm theo %</span> <span
+                                class="font-bold">9 (75.0%)</span></div>
+                        <div class="flex justify-between mb-1"><span class="text-gray-500">Giảm số tiền cố định</span>
+                            <span class="font-bold">3 (25.0%)</span></div>
+                        <div class="mt-2 text-gray-500">Loại mã</div>
+                        <div class="flex justify-between"><span class="text-gray-500">weekend</span> <span
+                                class="font-bold">1 (8.3%)</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ratings -->
+            <div class="card">
+                <h3 class="font-bold mb-3" style="font-size: 1rem;">Đánh giá sản phẩm</h3>
+                <div class="flex">
+                    <div class="mr-4 text-center" style="min-width: 100px;">
+                        <div class="text-sm text-gray-500">Tổng quan đánh giá</div>
+                        <div class="text-3xl font-bold mt-1">4.4</div>
+                        <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-1">14 đánh giá</div>
+                    </div>
+                    <div class="flex-1 text-sm">
+                        <div class="text-gray-500 mb-2">Phân bố đánh giá</div>
+                        <div class="flex items-center mb-1"><span class="w-8">5 sao</span> <i
+                                class="fas fa-star text-yellow-400 text-xs mr-1"></i> <span class="ml-auto font-bold">6
+                                (42.9%)</span></div>
+                        <div class="flex items-center mb-1"><span class="w-8">4 sao</span> <i
+                                class="fas fa-star text-yellow-400 text-xs mr-1"></i> <span class="ml-auto font-bold">7
+                                (50.0%)</span></div>
+                        <div class="flex items-center mb-1"><span class="w-8">3 sao</span> <i
+                                class="fas fa-star text-yellow-400 text-xs mr-1"></i> <span class="ml-auto font-bold">1
+                                (7.1%)</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications -->
+            <div class="card">
+                <h3 class="font-bold mb-3" style="font-size: 1rem;">Thống kê thông báo</h3>
+                <div class="flex justify-between">
+                    <div>
+                        <div class="text-sm text-gray-500">Tổng quan thông báo</div>
+                        <div class="flex justify-between items-center mt-2 w-full"><span class="text-sm">Tổng số thông
+                                báo</span> <span class="font-bold">13</span></div>
+                        <div class="flex justify-between items-center mt-1 w-full"><span
+                                class="text-sm text-green-600">Đang hoạt động</span> <span
+                                class="font-bold text-green-600">4</span></div>
+                        <div class="flex justify-between items-center mt-1 w-full"><span
+                                class="text-sm text-gray-500">Chờ gửi</span> <span class="font-bold">0</span></div>
+                        <div class="flex justify-between items-center mt-1 w-full"><span
+                                class="text-sm text-gray-500">Đã hết hạn</span> <span class="font-bold">9</span></div>
+                    </div>
+                    <div class="pl-4 border-l border-gray-100">
+                        <div class="text-sm text-gray-500 mb-2">Phân loại thông báo</div>
+                        <div class="flex justify-between mb-1 text-sm"><span>Bộ sưu tập mới</span> <span
+                                class="font-bold">1 (7.7%)</span></div>
+                        <div class="flex justify-between mb-1 text-sm"><span>Chính sách</span> <span class="font-bold">1
+                                (7.7%)</span></div>
+                        <div class="flex justify-between mb-1 text-sm"><span>Ngày lễ</span> <span class="font-bold">1
+                                (7.7%)</span></div>
+                        <div class="flex justify-between mb-1 text-sm"><span>Chào mừng</span> <span class="font-bold">3
+                                (23.1%)</span></div>
+                        <div class="flex justify-between mb-1 text-sm"><span>Khuyến mãi</span> <span class="font-bold">2
+                                (15.4%)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-products">
+        <div class="filter-bar">
+            <input type="text" id="searchProduct" class="input-field" placeholder="Nhập tên sản phẩm..."
+                style="width: 300px;">
+            <select class="input-field" style="width: 200px;">
+                <option value="">Tất cả danh mục</option>
+                <option value="cat1">Quần áo</option>
+            </select>
+            <button class="btn btn-primary ml-auto" onclick="openAddProductModal()">+ Thêm sản phẩm</button>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Danh mục</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    <!-- Rows rendered via JS -->
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>
