@@ -2,7 +2,9 @@ package com.nhom1.kttstoreapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     @SerializedName("_id")
     private String id;
     private String name;
@@ -10,6 +12,15 @@ public class Product {
     private String image;
     private double rating;
     private boolean isFeatured;
+    private boolean isFavorite; // Local state
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 
     public String getId() {
         return id;

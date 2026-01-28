@@ -40,6 +40,14 @@ public class HomeFragment extends Fragment {
     private ProductAdapter productAdapter;
     private Handler sliderHandler = new Handler();
 
+    private String currentKeyword = null;
+    private String currentCategoryId = null;
+    private Integer currentMinPrice = null;
+    private Integer currentMaxPrice = null;
+    private String currentSort = "newest";
+    private String currentStock = "all";
+    private Boolean currentPromotion = null;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -49,12 +57,65 @@ public class HomeFragment extends Fragment {
         viewPagerBanner = view.findViewById(R.id.viewPagerBanner);
         rvCategories = view.findViewById(R.id.rvCategories);
         rvFeaturedProducts = view.findViewById(R.id.rvFeaturedProducts);
+        android.widget.EditText etSearch = view.findViewById(R.id.etSearch);
+
+        // Search Listener
+        etSearch.addTextChangedListener(new android.text.TextWatcher() {
+            private Runnable searchRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    fetchProducts();
+                }
+            };
+            private Handler handler = new Handler();
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                handler.removeCallbacks(searchRunnable);
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {
+                currentKeyword = s.toString();
+                handler.postDelayed(searchRunnable, 600);
+            }
+        });
+
+        view.findViewById(R.id.ivToolbarFavorite).setOnClickListener(v -> {
+
+            android.content.Intent intent = new android.content.Intent(getContext(),
+                    com.nhom1.kttstoreapp.FavoriteActivity.class);
+
+            startActivity(intent);
+        });
+
+        view.findViewById(R.id.ivFilter).setOnClickListener(v ->
+
+        {
+            FilterBottomSheetFragment filterFragment = new FilterBottomSheetFragment();
+            filterFragment.setOnFilterApplyListener((minPrice, maxPrice, sort, stock, promotion) -> {
+                currentMinPrice = minPrice;
+                currentMaxPrice = maxPrice;
+                currentSort = sort;
+                currentStock = stock;
+                currentPromotion = promotion;
+                fetchProducts();
+            });
+            filterFragment.show(getChildFragmentManager(), filterFragment.getTag());
+        });
 
         setupBanner();
+
         setupCategories();
-        setupFeaturedProducts();
+
+        fetchProducts(); // Initial fetch
 
         return view;
+
     }
 
     private void setupBanner() {
@@ -99,7 +160,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    categoryAdapter = new CategoryAdapter(getContext(), response.body());
+                    categoryAdapter = new CategoryAdapter(getContext(), response.body(), category -> {
+                        currentCategoryId = category.getId(); // Assuming Category has getId()
+                        // Highlight selected category logic if needed
+                        fetchProducts();
+                    });
                     rvCategories.setAdapter(categoryAdapter);
                 }
             }
@@ -111,24 +176,44 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setupFeaturedProducts() {
+    // Replaces setupFeaturedProducts
+    private void fetchProducts() {
         rvFeaturedProducts.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        // Or LinearLayoutManager.HORIZONTAL if you want a horizontal list like the
-        // design often implies
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        apiService.getFeaturedProducts().enqueue(new Callback<List<Product>>() {
+        Call<List<Product>> call = apiService.getProducts(
+                currentKeyword,
+                1, // page
+                50, // limit
+                currentCategoryId,
+                currentMinPrice,
+                currentMaxPrice,
+                currentSort,
+                currentStock,
+                currentPromotion);
+
+        call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    productAdapter = new ProductAdapter(getContext(), response.body());
+                    Toast.makeText(getContext(),
+                            "Tìm thấy " + response.body().size() + " kết quả cho: " + currentKeyword,
+                            Toast.LENGTH_SHORT).show();
+                    productAdapter = new ProductAdapter(getContext(), response.body(), product -> {
+                        android.content.Intent intent = new android.content.Intent(getContext(),
+                                com.nhom1.kttstoreapp.ProductDetailActivity.class);
+                        intent.putExtra("product", product);
+                        startActivity(intent);
+                    });
                     rvFeaturedProducts.setAdapter(productAdapter);
+                } else {
+                    Toast.makeText(getContext(), "Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(getContext(), "Lỗi tải sản phẩm", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Lỗi tải sản phẩm: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

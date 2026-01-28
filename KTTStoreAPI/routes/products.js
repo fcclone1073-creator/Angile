@@ -7,9 +7,59 @@ const Category = require('../models/Category');
 // @desc    Get all products
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find();
+        const { page = 1, limit = 10, categoryId, minPrice, maxPrice, sort, stock, promotion, search } = req.query;
+        console.log("RECEIVED QUERY:", req.query); // Debug log
+
+        const query = {};
+
+        // Search by Name
+        if (search) {
+            query.name = { $regex: search, $options: 'i' };
+        }
+
+        // Category Filter
+        if (categoryId) {
+            query.categoryId = categoryId;
+        }
+
+        // Price Range Filter
+        if (minPrice || maxPrice) {
+            query.price = {};
+            if (minPrice) query.price.$gte = Number(minPrice);
+            if (maxPrice) query.price.$lte = Number(maxPrice);
+        }
+
+        // Stock Filter
+        if (stock === 'in_stock') {
+            query.countInStock = { $gt: 0 };
+        } else if (stock === 'out_of_stock') {
+            query.countInStock = { $lte: 0 };
+        }
+
+        // Promotion Filter (Old Price > Price)
+        if (promotion === 'true') {
+            query.$expr = { $gt: ["$oldPrice", "$price"] };
+        }
+
+        // Sorting
+        let sortOption = {};
+        if (sort === 'price_asc') {
+            sortOption = { price: 1 };
+        } else if (sort === 'price_desc') {
+            sortOption = { price: -1 };
+        } else if (sort === 'newest') {
+            sortOption = { _id: -1 };
+        }
+
+        const products = await Product.find(query)
+            .sort(sortOption)
+            .limit(limit * 1)
+            .skip((page - 1) * limit)
+            .exec();
+
         res.json(products);
     } catch (err) {
+        console.error(err.message);
         res.status(500).send('Server Error');
     }
 });

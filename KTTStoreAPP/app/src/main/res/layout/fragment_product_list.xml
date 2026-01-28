@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,32 +10,56 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:background="@color/white"
-        android:elevation="4dp"
+        android:background="#F5F5F5"
         android:gravity="center_vertical">
         
         <ImageView
+            android:id="@+id/ivBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_rotate"/>
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="@color/black"/>
             
         <EditText
+            android:id="@+id/etSearch"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_edittext"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawablePadding="8dp"
             android:hint="Tìm kiếm sản phẩm..."
             android:paddingStart="12dp"
             android:textSize="14sp"/>
 
         <ImageView
+            android:id="@+id/ivFilter"
              android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_sort_by_size"/>
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            app:tint="@color/black"/>
             
     </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:id="@+id/llCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-- Categories will be added dynamically -->
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAllProducts"

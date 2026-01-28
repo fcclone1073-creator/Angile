@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmail, etPassword;
+    private ImageView ivShowPassword;
     private Button btnLogin;
     private TextView tvRegister, tvForgotPassword;
 
@@ -44,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        ivShowPassword = findViewById(R.id.ivShowPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
@@ -56,6 +59,22 @@ public class LoginActivity extends AppCompatActivity {
 
         tvForgotPassword.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+        });
+
+        ivShowPassword.setOnClickListener(v -> {
+            if (etPassword.getTransformationMethod()
+                    .equals(android.text.method.PasswordTransformationMethod.getInstance())) {
+                // Show Password
+                etPassword.setTransformationMethod(android.text.method.HideReturnsTransformationMethod.getInstance());
+                // Optional: Change icon if you have an 'eye-off' icon
+                // ivShowPassword.setImageResource(R.drawable.ic_eye_off);
+            } else {
+                // Hide Password
+                etPassword.setTransformationMethod(android.text.method.PasswordTransformationMethod.getInstance());
+                ivShowPassword.setImageResource(android.R.drawable.ic_menu_view);
+            }
+            // Move cursor to end
+            etPassword.setSelection(etPassword.getText().length());
         });
     }
 
@@ -97,7 +116,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                String errorMsg = "Lỗi kết nối: " + t.getMessage();
+                if (t.getCause() != null) {
+                    errorMsg += "\nChi tiết: " + t.getCause().getMessage();
+                }
+                Toast.makeText(LoginActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+                // Log to console for debugging
+                android.util.Log.e("LoginActivity", "Connection failed", t);
             }
         });
     }

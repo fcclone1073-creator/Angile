@@ -3,6 +3,17 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
+// @route   GET /api/auth/health
+// @desc    Health check endpoint
+// @access  Public
+router.get('/health', (req, res) => {
+    res.json({
+        status: 'OK',
+        message: 'KTT Store API is running',
+        timestamp: new Date().toISOString()
+    });
+});
+
 // @route   POST /api/auth/register
 // @desc    Register new user
 // @access  Public

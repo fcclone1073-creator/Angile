@@ -30,6 +30,11 @@ const ProductSchema = new mongoose.Schema({
     isFeatured: {
         type: Boolean,
         default: false
+    },
+    countInStock: {
+        type: Number,
+        required: true,
+        default: 0
     }
 });
 
