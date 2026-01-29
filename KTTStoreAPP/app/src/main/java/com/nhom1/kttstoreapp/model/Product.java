@@ -14,6 +14,16 @@ public class Product implements Serializable {
     private boolean isFeatured;
     private boolean isFavorite; // Local state
 
+    public Product() {
+    }
+
+    public Product(String id, String name, double price, String image) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = image;
+    }
+
     public boolean isFavorite() {
         return isFavorite;
     }

@@ -511,3 +511,64 @@ td {
     padding: 1rem;
     border-radius: var(--radius);
 }
+
+/* Login Page Specific Layout - Fixed */
+.login-container {
+    display: flex;
+    width: 900px;
+    max-width: 90%;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    min-height: 550px;
+}
+
+.login-left {
+    flex: 1;
+    background: linear-gradient(135deg, #e53935 0%, #ff5252 100%);
+    color: white;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-left h1,
+.login-left p,
+.login-left span,
+.login-left div {
+    color: white !important;
+}
+
+.login-right {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        height: auto;
+    }
+}
+/* Utility classes for icon boxes - injected */
+.bg-blue-100 { background-color: #dbeafe; }
+.text-blue-600 { color: #2563eb; }
+.bg-purple-100 { background-color: #f3e8ff; }
+.text-purple-600 { color: #9333ea; }
+.bg-pink-100 { background-color: #fce7f3; }
+.text-pink-500 { color: #ec4899; }
+.bg-green-100 { background-color: #dcfce7; }
+.text-green-600 { color: #16a34a; }
+.bg-red-100 { background-color: #fee2e2; }
+.text-red-600 { color: #dc2626; }
+.bg-orange-100 { background-color: #ffedd5; }
+.text-orange-600 { color: #ea580c; }
+.bg-yellow-100 { background-color: #fef9c3; }
+.text-yellow-400 { color: #facc15; }
+.icon-box { display: flex; align-items: center; justify-content: center; border-radius: 8px; }

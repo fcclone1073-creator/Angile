@@ -62,7 +62,7 @@
         <main class="main-content">
             <!-- Topbar -->
             <header class="topbar">
-                <div class="breadcrumb" style="font-size: 0.9rem; color: #777;">Dashboard > <span
+                <div class="breadcrumb" style="font-size: 0.9rem; color: #777;">Dashboard > <span id="pageTitle"
                         style="color: var(--secondary-color); font-weight: 600;">Dashboard</span></div>
                 <!-- User info removed from right side to match screenshot clean look, or keep if preferred. Screenshot shows "Dashboard > Dashboard" on left. -->
                 <!-- We keep user info for utility but make it subtle -->
@@ -83,13 +83,14 @@
         <h2 class="mb-4" style="font-size: 1.75rem; font-weight: 700;">Tổng quan</h2>
 
         <!-- Row 1 -->
+        <!-- Row 1 -->
         <div class="card-grid mb-4">
             <!-- Total Products -->
             <div class="card flex justify-between items-center">
                 <div>
                     <div class="card-title">Tổng sản phẩm</div>
-                    <div class="card-value">112</div>
-                    <div class="text-sm text-gray-500 mt-1">92 còn hàng</div>
+                    <div class="card-value" id="dash-total-products">...</div>
+                    <div class="text-sm text-gray-500 mt-1">Sản phẩm trong kho</div>
                 </div>
                 <div class="icon-box bg-blue-100 text-blue-600">
                     <i class="fas fa-box"></i>
@@ -100,8 +101,8 @@
             <div class="card flex justify-between items-center">
                 <div>
                     <div class="card-title">Sản phẩm hết hàng</div>
-                    <div class="card-value">20</div>
-                    <div class="text-sm text-gray-500 mt-1">17.9%</div>
+                    <div class="card-value" id="dash-out-stock">...</div>
+                    <div class="text-sm text-gray-500 mt-1">Cần nhập thêm</div>
                 </div>
                 <div class="icon-box bg-red-100 text-red-600">
                     <i class="fas fa-trash"></i>
@@ -112,8 +113,8 @@
             <div class="card flex justify-between items-center">
                 <div>
                     <div class="card-title">Đang khuyến mãi</div>
-                    <div class="card-value">112</div>
-                    <div class="text-sm text-gray-500 mt-1">100.0%</div>
+                    <div class="card-value" id="dash-promo">...</div>
+                    <div class="text-sm text-gray-500 mt-1">Sản phẩm giảm giá</div>
                 </div>
                 <div class="icon-box bg-green-100 text-green-600">
                     <i class="fas fa-dollar-sign"></i>
@@ -127,8 +128,8 @@
             <div class="card flex justify-between items-center">
                 <div>
                     <div class="card-title">Tổng người dùng</div>
-                    <div class="card-value">16</div>
-                    <div class="text-sm text-gray-500 mt-1">6 người dùng mới tháng này</div>
+                    <div class="card-value" id="dash-total-users">...</div>
+                    <div class="text-sm text-gray-500 mt-1">Khách hàng hệ thống</div>
                 </div>
                 <div class="icon-box bg-purple-100 text-purple-600">
                     <i class="fas fa-users"></i>
@@ -139,8 +140,8 @@
             <div class="card flex justify-between items-center">
                 <div>
                     <div class="card-title">Tổng đơn hàng</div>
-                    <div class="card-value">194</div>
-                    <div class="text-sm text-gray-500 mt-1">99 đã thanh toán</div>
+                    <div class="card-value" id="dash-total-orders">...</div>
+                    <div class="text-sm text-gray-500 mt-1">Đơn hàng đã đặt</div>
                 </div>
                 <div class="icon-box bg-orange-100 text-orange-600">
                     <i class="fas fa-shopping-bag"></i>
@@ -151,8 +152,8 @@
             <div class="card flex justify-between items-center">
                 <div>
                     <div class="card-title">Doanh thu</div>
-                    <div class="card-value">271.2M</div>
-                    <div class="text-sm text-gray-500 mt-1">99/194 đơn đã thanh toán</div>
+                    <div class="card-value" id="dash-revenue">...</div>
+                    <div class="text-sm text-gray-500 mt-1">Tổng doanh thu</div>
                 </div>
                 <div class="icon-box bg-green-100 text-green-600">
                     <i class="fas fa-dollar-sign"></i>
@@ -161,6 +162,7 @@
         </div>
 
         <!-- Row 3: Complex Stats -->
+        <!-- Row 3: Complex Stats -->
         <div class="card-grid">
             <!-- Coupons -->
             <div class="card">
@@ -168,21 +170,22 @@
                 <div class="flex justify-between mb-2">
                     <div>
                         <div class="text-sm text-gray-500">Tổng số mã giảm giá</div>
-                        <div class="text-xl font-bold">12</div>
-                        <div class="mt-2 text-sm"><span class="text-green-600">9 đang hoạt động</span> <span
-                                class="text-red-500 ml-2">3 đã hết hạn</span></div>
+                        <div class="text-xl font-bold">0</div>
+                        <div class="mt-2 text-sm"><span class="text-green-600">0 đang hoạt động</span> <span
+                                class="text-red-500 ml-2">0 đã hết hạn</span></div>
                         <div class="mt-2 text-sm text-gray-500">Lượt sử dụng</div>
-                        <div class="font-bold">3</div>
+                        <div class="font-bold">0</div>
                     </div>
                     <div class="text-sm">
                         <div class="flex justify-between mb-1"><span>Loại giảm giá</span></div>
                         <div class="flex justify-between mb-1"><span class="text-gray-500">Giảm theo %</span> <span
-                                class="font-bold">9 (75.0%)</span></div>
+                                class="font-bold">0 (0%)</span></div>
                         <div class="flex justify-between mb-1"><span class="text-gray-500">Giảm số tiền cố định</span>
-                            <span class="font-bold">3 (25.0%)</span></div>
+                            <span class="font-bold">0 (0%)</span>
+                        </div>
                         <div class="mt-2 text-gray-500">Loại mã</div>
                         <div class="flex justify-between"><span class="text-gray-500">weekend</span> <span
-                                class="font-bold">1 (8.3%)</span></div>
+                                class="font-bold">0 (0%)</span></div>
                     </div>
                 </div>
             </div>
@@ -193,23 +196,23 @@
                 <div class="flex">
                     <div class="mr-4 text-center" style="min-width: 100px;">
                         <div class="text-sm text-gray-500">Tổng quan đánh giá</div>
-                        <div class="text-3xl font-bold mt-1">4.4</div>
-                        <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        <div class="text-3xl font-bold mt-1">0.0</div>
+                        <div class="text-gray-300 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <div class="text-xs text-gray-400 mt-1">14 đánh giá</div>
+                        <div class="text-xs text-gray-400 mt-1">0 đánh giá</div>
                     </div>
                     <div class="flex-1 text-sm">
                         <div class="text-gray-500 mb-2">Phân bố đánh giá</div>
                         <div class="flex items-center mb-1"><span class="w-8">5 sao</span> <i
-                                class="fas fa-star text-yellow-400 text-xs mr-1"></i> <span class="ml-auto font-bold">6
-                                (42.9%)</span></div>
+                                class="fas fa-star text-gray-300 text-xs mr-1"></i> <span class="ml-auto font-bold">0
+                                (0%)</span></div>
                         <div class="flex items-center mb-1"><span class="w-8">4 sao</span> <i
-                                class="fas fa-star text-yellow-400 text-xs mr-1"></i> <span class="ml-auto font-bold">7
-                                (50.0%)</span></div>
+                                class="fas fa-star text-gray-300 text-xs mr-1"></i> <span class="ml-auto font-bold">0
+                                (0%)</span></div>
                         <div class="flex items-center mb-1"><span class="w-8">3 sao</span> <i
-                                class="fas fa-star text-yellow-400 text-xs mr-1"></i> <span class="ml-auto font-bold">1
-                                (7.1%)</span></div>
+                                class="fas fa-star text-gray-300 text-xs mr-1"></i> <span class="ml-auto font-bold">0
+                                (0%)</span></div>
                     </div>
                 </div>
             </div>
@@ -221,27 +224,27 @@
                     <div>
                         <div class="text-sm text-gray-500">Tổng quan thông báo</div>
                         <div class="flex justify-between items-center mt-2 w-full"><span class="text-sm">Tổng số thông
-                                báo</span> <span class="font-bold">13</span></div>
+                                báo</span> <span class="font-bold">0</span></div>
                         <div class="flex justify-between items-center mt-1 w-full"><span
                                 class="text-sm text-green-600">Đang hoạt động</span> <span
-                                class="font-bold text-green-600">4</span></div>
+                                class="font-bold text-green-600">0</span></div>
                         <div class="flex justify-between items-center mt-1 w-full"><span
                                 class="text-sm text-gray-500">Chờ gửi</span> <span class="font-bold">0</span></div>
                         <div class="flex justify-between items-center mt-1 w-full"><span
-                                class="text-sm text-gray-500">Đã hết hạn</span> <span class="font-bold">9</span></div>
+                                class="text-sm text-gray-500">Đã hết hạn</span> <span class="font-bold">0</span></div>
                     </div>
                     <div class="pl-4 border-l border-gray-100">
                         <div class="text-sm text-gray-500 mb-2">Phân loại thông báo</div>
                         <div class="flex justify-between mb-1 text-sm"><span>Bộ sưu tập mới</span> <span
-                                class="font-bold">1 (7.7%)</span></div>
-                        <div class="flex justify-between mb-1 text-sm"><span>Chính sách</span> <span class="font-bold">1
-                                (7.7%)</span></div>
-                        <div class="flex justify-between mb-1 text-sm"><span>Ngày lễ</span> <span class="font-bold">1
-                                (7.7%)</span></div>
-                        <div class="flex justify-between mb-1 text-sm"><span>Chào mừng</span> <span class="font-bold">3
-                                (23.1%)</span></div>
-                        <div class="flex justify-between mb-1 text-sm"><span>Khuyến mãi</span> <span class="font-bold">2
-                                (15.4%)</span></div>
+                                class="font-bold">0 (0%)</span></div>
+                        <div class="flex justify-between mb-1 text-sm"><span>Chính sách</span> <span class="font-bold">0
+                                (0%)</span></div>
+                        <div class="flex justify-between mb-1 text-sm"><span>Ngày lễ</span> <span class="font-bold">0
+                                (0%)</span></div>
+                        <div class="flex justify-between mb-1 text-sm"><span>Chào mừng</span> <span class="font-bold">0
+                                (0%)</span></div>
+                        <div class="flex justify-between mb-1 text-sm"><span>Khuyến mãi</span> <span class="font-bold">0
+                                (0%)</span></div>
                     </div>
                 </div>
             </div>
@@ -249,24 +252,124 @@
     </template>
 
     <template id="tpl-products">
-        <div class="filter-bar">
-            <input type="text" id="searchProduct" class="input-field" placeholder="Nhập tên sản phẩm..."
-                style="width: 300px;">
-            <select class="input-field" style="width: 200px;">
-                <option value="">Tất cả danh mục</option>
-                <option value="cat1">Quần áo</option>
-            </select>
-            <button class="btn btn-primary ml-auto" onclick="openAddProductModal()">+ Thêm sản phẩm</button>
+        <h2 class="mb-4" style="font-size: 1.75rem; font-weight: 700;">Quản lý sản phẩm</h2>
+        <p class="mb-4 text-gray-500">Quản lý và theo dõi tất cả sản phẩm của bạn</p>
+
+        <!-- Stats Row -->
+        <div class="card-grid mb-4">
+            <!-- Total Products -->
+            <div class="card flex justify-between items-center relative overflow-hidden">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: #3b82f6;">
+                </div>
+                <div class="w-full">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="card-title">Tổng sản phẩm</div>
+                        <div class="icon-box bg-blue-100 text-blue-600"
+                            style="width: 32px; height: 32px; font-size: 1rem;">
+                            <i class="fas fa-box"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="stat-total-products">0</div>
+                </div>
+            </div>
+
+            <!-- Male Products -->
+            <div class="card flex justify-between items-center relative overflow-hidden">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: #8b5cf6;">
+                </div>
+                <div class="w-full">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="card-title">Sản phẩm nam</div>
+                        <div class="icon-box bg-purple-100 text-purple-600"
+                            style="width: 32px; height: 32px; font-size: 1rem;">
+                            <i class="fas fa-male"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="stat-male-products">0</div>
+                </div>
+            </div>
+
+            <!-- Female Products -->
+            <div class="card flex justify-between items-center relative overflow-hidden">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: #ec4899;">
+                </div>
+                <div class="w-full">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="card-title">Sản phẩm nữ</div>
+                        <div class="icon-box bg-pink-100 text-pink-500"
+                            style="width: 32px; height: 32px; font-size: 1rem;">
+                            <i class="fas fa-female"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="stat-female-products">0</div>
+                </div>
+            </div>
+
+            <!-- Revenue (Mock for now or 0) -->
+            <div class="card flex justify-between items-center relative overflow-hidden">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: #22c55e;">
+                </div>
+                <div class="w-full">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="card-title">Tổng doanh thu</div>
+                        <div class="icon-box bg-green-100 text-green-600"
+                            style="width: 32px; height: 32px; font-size: 1rem;">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">0đ</div>
+                </div>
+            </div>
         </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar flex-wrap">
+            <div class="input-group mb-0 mr-4 flex items-center"
+                style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 0 10px; width: 300px;">
+                <i class="fas fa-search text-gray-400"></i>
+                <input type="text" id="searchProduct" class="input-field" placeholder="Nhập tên sản phẩm..."
+                    style="border: none; background: transparent; padding: 10px; width: 100%;">
+            </div>
+
+            <select class="input-field mr-4" id="filterCategory" style="width: 230px;">
+                <option value="">Tất cả danh mục</option>
+                <!-- Helper to populate categories -->
+            </select>
+
+            <select class="input-field mr-4" id="filterGender" style="width: 180px;">
+                <option value="">Tất cả giới tính</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Unisex">Unisex</option>
+            </select>
+
+            <select class="input-field mr-4" id="filterStatus" style="width: 180px;">
+                <option value="">Tất cả trạng thái</option>
+                <option value="active">Hoạt động</option>
+                <option value="inactive">Đã ẩn</option>
+            </select>
+
+            <select class="input-field mr-auto" id="sortProduct" style="width: 150px;">
+                <option value="newest">Mới nhất</option>
+                <option value="price_asc">Giá tăng dần</option>
+                <option value="price_desc">Giá giảm dần</option>
+            </select>
+
+            <button class="btn btn-primary" onclick="openAddProductModal()">+ Thêm sản phẩm</button>
+        </div>
+
+        <!-- Table -->
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
-                        <th>Tên sản phẩm</th>
-                        <th>Giá</th>
-                        <th>Danh mục</th>
-                        <th>Trạng thái</th>
-                        <th>Thao tác</th>
+                        <th style="width: 25%;">Tên sản phẩm</th>
+                        <th style="width: 15%;">Giá</th>
+                        <th style="width: 15%;">Danh mục</th>
+                        <th style="width: 10%;">Đối tượng</th>
+                        <th style="width: 15%;">Ngày tạo</th>
+                        <th style="width: 10%;">Trạng thái</th>
+                        <th style="width: 10%;">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody id="productTableBody">
@@ -274,6 +377,242 @@
                 </tbody>
             </table>
         </div>
+    </template>
+
+    <!-- Modal Template for Add/Edit Product -->
+    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center"
+        style="z-index: 1000;">
+        <div class="bg-white rounded-lg p-6 w-full max-w-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold" id="modalTitle">Thêm sản phẩm mới</h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tên sản phẩm</label>
+                        <input type="text" id="prodName" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Giá (VNĐ)</label>
+                        <input type="number" id="prodPrice" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Giá cũ (VNĐ)</label>
+                        <input type="number" id="prodOldPrice" class="w-full border rounded px-3 py-2">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Danh mục</label>
+                        <select id="prodCategory" class="w-full border rounded px-3 py-2" required>
+                            <!-- Populated via JS -->
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Giới tính (Đối tượng)</label>
+                        <select id="prodGender" class="w-full border rounded px-3 py-2">
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Unisex">Unisex</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tồn kho</label>
+                        <input type="number" id="prodStock" class="w-full border rounded px-3 py-2" value="0">
+                    </div>
+                    <div class="mb-4 col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Hình ảnh (URL)</label>
+                        <input type="text" id="prodImage" class="w-full border rounded px-3 py-2"
+                            placeholder="https://..." required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+                        <select id="prodStatus" class="w-full border rounded px-3 py-2">
+                            <option value="active">Hoạt động</option>
+                            <option value="inactive">Không hoạt động</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button type="button" onclick="closeModal()" class="btn mr-2"
+                        style="background: #e5e7eb; color: #374151;">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <template id="tpl-customers">
+        <h2 class="mb-4" style="font-size: 1.75rem; font-weight: 700;">Quản lý khách hàng</h2>
+        <p class="mb-4 text-gray-500">Quản lý và theo dõi tất cả khách hàng trong hệ thống</p>
+
+        <!-- Stats Row -->
+        <div class="card-grid mb-4">
+            <!-- Total Customers -->
+            <div class="card flex justify-between items-center relative overflow-hidden">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: #2563eb;">
+                </div>
+                <div class="w-full">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="card-title">Tổng số khách hàng</div>
+                        <div class="icon-box bg-blue-100 text-blue-600"
+                            style="width: 32px; height: 32px; font-size: 1rem;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="cust-total">...</div>
+                </div>
+            </div>
+
+            <!-- Active -->
+            <div class="card flex justify-between items-center relative overflow-hidden">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: #22c55e;">
+                </div>
+                <div class="w-full">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="card-title">Đang hoạt động</div>
+                        <div class="icon-box bg-green-100 text-green-600"
+                            style="width: 32px; height: 32px; font-size: 1rem;">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="cust-active">...</div>
+                </div>
+            </div>
+
+            <!-- Disabled -->
+            <div class="card flex justify-between items-center relative overflow-hidden">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: #ef4444;">
+                </div>
+                <div class="w-full">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="card-title">Đã vô hiệu hóa</div>
+                        <div class="icon-box bg-red-100 text-red-500"
+                            style="width: 32px; height: 32px; font-size: 1rem;">
+                            <i class="fas fa-user-times"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="cust-disabled">...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar flex-wrap">
+            <div class="input-group mb-0 mr-4 flex items-center"
+                style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 0 10px; width: 300px;">
+                <i class="fas fa-search text-gray-400"></i>
+                <input type="text" id="searchCustomer" class="input-field"
+                    placeholder="Nhập tên, email hoặc số điện thoại"
+                    style="border: none; background: transparent; padding: 10px; width: 100%;">
+            </div>
+
+            <select class="input-field mr-4" id="filterCustStatus" style="width: 230px;">
+                <option value="" id="cust-filter-all">Tất cả trạng thái</option>
+                <option value="active">Đang hoạt động</option>
+                <option value="disabled">Đã vô hiệu hóa</option>
+            </select>
+
+            <select class="input-field mr-4" id="filterCustGender" style="width: 180px;">
+                <option value="">Tất cả giới tính</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+
+            <select class="input-field mr-4" id="sortCustField" style="width: 120px;">
+                <option value="id">Theo ID</option>
+                <option value="name">Theo Tên</option>
+            </select>
+
+            <select class="input-field" id="sortCustOrder" style="width: 150px;">
+                <option value="desc">Giảm dần</option>
+                <option value="asc">Tăng dần</option>
+            </select>
+
+            <button class="btn btn-primary ml-4" onclick="openAddCustomerModal()">+ Thêm khách hàng</button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Họ và tên</th>
+                        <th style="width: 10%;">Giới tính</th>
+                        <th style="width: 25%;">Email</th>
+                        <th style="width: 15%;">Số điện thoại</th>
+                        <th style="width: 15%;">Trạng thái</th>
+                        <th style="width: 10%;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="customerTableBody">
+                    <!-- Rows rendered via JS -->
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <!-- Modal Template for Add/Edit User -->
+    <div id="userModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center"
+        style="z-index: 1000;">
+        <div class="bg-white rounded-lg p-6 w-full max-w-xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold" id="userModalTitle">Thêm khách hàng mới</h3>
+                <button onclick="closeUserModal()" class="text-gray-500 hover:text-gray-700"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="mb-4 col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên</label>
+                        <input type="text" id="userNameInput" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="userEmail" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
+                        <input type="text" id="userPhone" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
+                        <input type="password" id="userPassword" class="w-full border rounded px-3 py-2"
+                            placeholder="Để trống nếu không đổi">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Giới tính</label>
+                        <select id="userGender" class="w-full border rounded px-3 py-2">
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+                        <select id="userStatus" class="w-full border rounded px-3 py-2">
+                            <option value="active">Đang hoạt động</option>
+                            <option value="disabled">Vô hiệu hóa</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Vai trò</label>
+                        <select id="userRole" class="w-full border rounded px-3 py-2">
+                            <option value="user">Người dùng</option>
+                            <option value="admin">Quản trị viên</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button type="button" onclick="closeUserModal()" class="btn mr-2"
+                        style="background: #e5e7eb; color: #374151;">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu khách hàng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     </template>
 
     <script src="js/config.js"></script>
