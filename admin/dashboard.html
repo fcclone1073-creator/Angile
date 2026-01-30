@@ -1324,20 +1324,66 @@
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 25%;">Tiêu đề</th>
-                        <th style="width: 10%;">Loại</th>
-                        <th style="width: 10%;">Trạng thái</th>
-                        <th style="width: 10%;">Lượt đọc</th>
+                        <th style="width: 30%;">Tiêu đề</th>
+                        <th style="width: 12%;">Loại</th>
+                        <th style="width: 12%;">Trạng thái</th>
+                        <th style="width: 8%;">Lượt đọc</th>
                         <th style="width: 15%;">Ngày tạo</th>
-                        <th style="width: 15%;">Ngày hiển thị</th>
                         <th style="width: 15%;">Ngày hết hạn</th>
-                        <th style="width: 10%;">Thao tác</th>
+                        <th style="width: 8%;">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody id="notifTableBody"></tbody>
             </table>
         </div>
     </template>
+
+    <!-- Modal for Notifications -->
+    <div id="notificationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center"
+        style="z-index: 9999;">
+        <div class="bg-white rounded-lg p-6 w-full max-w-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold" id="notificationModalTitle">Tạo thông báo mới</h3>
+                <button onclick="closeNotifModal()" class="text-gray-500 hover:text-gray-700"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <form id="notificationForm" onsubmit="saveNotification(event)">
+                <input type="hidden" id="notificationId">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tiêu đề</label>
+                    <input type="text" id="notifTitle" class="w-full border rounded px-3 py-2" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Loại thông báo</label>
+                    <select id="notifType" class="w-full border rounded px-3 py-2">
+                        <option value="general">Thông báo chung</option>
+                        <option value="promotion">Khuyến mãi</option>
+                        <option value="system">Hệ thống</option>
+                        <option value="welcome">Chào mừng</option>
+                        <option value="policy">Chính sách</option>
+                        <option value="maintenance">Bảo trì</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nội dung chi tiết</label>
+                    <textarea id="notifContent" class="w-full border rounded px-3 py-2" rows="3"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+                    <select id="notifStatus" class="w-full border rounded px-3 py-2">
+                        <option value="sent">Đã gửi</option>
+                        <option value="pending">Chờ gửi</option>
+                        <option value="expired">Hết hạn</option>
+                    </select>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" onclick="closeNotifModal()" class="btn mr-2"
+                        style="background: #e5e7eb; color: #374151;">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Gửi thông báo</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>

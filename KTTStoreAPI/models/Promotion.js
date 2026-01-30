@@ -6,8 +6,8 @@ const PromotionSchema = new mongoose.Schema({
     discountText: { type: String, required: true }, // ví dụ '30%' hoặc '100K'
     type: {
         type: String,
-        enum: ['flash_sale', 'holiday', 'other'],
-        default: 'flash_sale'
+        enum: ['general', 'flash_sale', 'holiday', 'other'],
+        default: 'general'
     },
     status: {
         type: String,

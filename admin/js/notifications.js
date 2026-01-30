@@ -21,7 +21,7 @@ async function renderNotifications(container) {
     } catch (err) {
         console.error(err);
         const tbody = document.getElementById('notifTableBody');
-        if (tbody) tbody.innerHTML = `<tr><td colspan="8" class="text-center text-red-500">Lỗi tải dữ liệu</td></tr>`;
+        if (tbody) tbody.innerHTML = `<tr><td colspan="7" class="text-center text-red-500">Lỗi tải dữ liệu</td></tr>`;
     }
 }
 
@@ -41,7 +41,7 @@ function renderNotificationTable(notifications) {
     const tbody = document.getElementById('notifTableBody');
 
     if (notifications.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center">Chưa có thông báo nào</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center">Chưa có thông báo nào</td></tr>';
         return;
     }
 
@@ -49,7 +49,6 @@ function renderNotificationTable(notifications) {
         const typeBadge = getNotifTypeBadge(notif.type);
         const statusBadge = getNotifStatusBadge(notif.status);
         const createdDate = notif.createdAt ? new Date(notif.createdAt).toLocaleDateString('vi-VN') : '-';
-        const displayDate = notif.displayDate ? new Date(notif.displayDate).toLocaleDateString('vi-VN') : '-';
         const expireDate = notif.expireDate ? new Date(notif.expireDate).toLocaleDateString('vi-VN') : 'Không giới hạn';
 
         return `
@@ -59,7 +58,6 @@ function renderNotificationTable(notifications) {
                 <td>${statusBadge}</td>
                 <td style="text-align: center; color: #666;">${notif.readCount || 0}</td>
                 <td style="color: #666; font-size: 0.875rem;">${createdDate}</td>
-                <td style="color: #666; font-size: 0.875rem;">${displayDate}</td>
                 <td style="color: #666; font-size: 0.875rem;">${expireDate}</td>
                 <td>
                     <button class="action-btn" title="Kích hoạt/Vô hiệu hóa" onclick="toggleNotifStatus('${notif._id}')">

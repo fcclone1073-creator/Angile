@@ -102,7 +102,171 @@ function loadView(viewName, menuItem) {
             break;
         case 'settings':
             pageTitle.innerText = 'Cài đặt hệ thống';
-            contentDiv.innerHTML = '<div class="table-container p-4"><h3>Cấu hình hệ thống (Chỉ Admin thấy)</h3><p>Server Port: 5000</p><p>Version: 1.0.0</p></div>';
+            contentDiv.innerHTML = `
+                <div class="p-4">
+                    <h2 class="text-2xl font-bold mb-6">Cài đặt hệ thống</h2>
+                    
+                    <!-- Store Information -->
+                    <div class="card mb-6">
+                        <h3 class="text-lg font-bold mb-4" style="color: #1f2937; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                            <i class="fas fa-store mr-2" style="color: #3b82f6;"></i>Thông tin cửa hàng
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Tên cửa hàng</label>
+                                <input type="text" value="KTT Store" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email liên hệ</label>
+                                <input type="email" value="contact@kttstore.com" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
+                                <input type="text" value="0123-456-789" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Địa chỉ</label>
+                                <input type="text" value="123 Đường ABC, Quận 1, TP.HCM" class="w-full border rounded px-3 py-2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Configuration -->
+                    <div class="card mb-6">
+                        <h3 class="text-lg font-bold mb-4" style="color: #1f2937; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                            <i class="fas fa-cog mr-2" style="color: #10b981;"></i>Cấu hình hệ thống
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Server Port</label>
+                                <input type="text" value="5000" class="w-full border rounded px-3 py-2" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Version</label>
+                                <input type="text" value="1.0.0" class="w-full border rounded px-3 py-2" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Database</label>
+                                <input type="text" value="MongoDB - kttstore" class="w-full border rounded px-3 py-2" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">API Endpoint</label>
+                                <input type="text" value="http://localhost:5000/api" class="w-full border rounded px-3 py-2" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="card mb-6">
+                        <h3 class="text-lg font-bold mb-4" style="color: #1f2937; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                            <i class="fas fa-credit-card mr-2" style="color: #f59e0b;"></i>Phương thức thanh toán
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                <div class="flex items-center">
+                                    <i class="fas fa-money-bill-wave mr-3 text-green-500"></i>
+                                    <span class="font-medium">Thanh toán khi nhận hàng (COD)</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                <div class="flex items-center">
+                                    <i class="fab fa-cc-visa mr-3 text-blue-600"></i>
+                                    <span class="font-medium">Thẻ Visa/MasterCard</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                <div class="flex items-center">
+                                    <i class="fas fa-university mr-3 text-purple-600"></i>
+                                    <span class="font-medium">Chuyển khoản ngân hàng</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                <div class="flex items-center">
+                                    <i class="fas fa-wallet mr-3 text-orange-500"></i>
+                                    <span class="font-medium">Ví điện tử (MoMo, ZaloPay)</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Settings -->
+                    <div class="card mb-6">
+                        <h3 class="text-lg font-bold mb-4" style="color: #1f2937; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                            <i class="fas fa-shipping-fast mr-2" style="color: #8b5cf6;"></i>Cài đặt vận chuyển
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Phí ship cố định (VNĐ)</label>
+                                <input type="number" value="30000" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Miễn phí ship từ (VNĐ)</label>
+                                <input type="number" value="500000" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Đơn vị vận chuyển</label>
+                                <select class="w-full border rounded px-3 py-2">
+                                    <option>Giao hàng nhanh</option>
+                                    <option>Giao hàng tiết kiệm</option>
+                                    <option>VNPost</option>
+                                    <option>J&T Express</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email Configuration -->
+                    <div class="card mb-6">
+                        <h3 class="text-lg font-bold mb-4" style="color: #1f2937; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                            <i class="fas fa-envelope mr-2" style="color: #ef4444;"></i>Cấu hình Email
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">SMTP Server</label>
+                                <input type="text" value="smtp.gmail.com" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">SMTP Port</label>
+                                <input type="text" value="587" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email gửi</label>
+                                <input type="email" value="noreply@kttstore.com" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
+                                <input type="password" value="********" class="w-full border rounded px-3 py-2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex justify-end gap-3">
+                        <button class="btn" style="background: #e5e7eb; color: #374151;">
+                            <i class="fas fa-undo mr-2"></i>Khôi phục mặc định
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save mr-2"></i>Lưu cài đặt
+                        </button>
+                    </div>
+                </div>
+            `;
             break;
         default:
             // Fallback for unimplemented views
@@ -464,7 +628,8 @@ function filterCustomers() {
 }
 
 // Setup Modal Form
-document.getElementById('userForm').addEventListener('submit', saveUser);
+// TODO: Implement saveUser function
+// document.getElementById('userForm').addEventListener('submit', saveUser);
 
 
 

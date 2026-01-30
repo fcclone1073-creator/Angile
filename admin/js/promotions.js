@@ -20,7 +20,7 @@ async function renderPromotions(container) {
 
     } catch (err) {
         console.error(err);
-        const container = document.getElementById('promotionCardsContainer');
+        const container = document.getElementById('promoGrid');
         if (container) container.innerHTML = `<p class="text-center text-red-500">Lỗi tải dữ liệu</p>`;
     }
 }
@@ -36,19 +36,31 @@ function calculatePromotionStats(promotions) {
     const upcoming = promotions.filter(p => p.startDate && new Date(p.startDate) > now).length;
     const ended = promotions.filter(p => (p.endDate && new Date(p.endDate) < now) || p.status === 'expired').length;
 
-    document.getElementById('promo-total').innerText = total;
-    document.getElementById('promo-active').innerText = active;
-    document.getElementById('promo-upcoming').innerText = upcoming;
-    document.getElementById('promo-ended').innerText = ended;
+    const totalEl = document.getElementById('promo-total');
+    const activeEl = document.getElementById('promo-active');
+    const upcomingEl = document.getElementById('promo-upcoming');
+    const expiredEl = document.getElementById('promo-expired');
+
+    if (totalEl) totalEl.innerText = total;
+    if (activeEl) activeEl.innerText = active;
+    if (upcomingEl) upcomingEl.innerText = upcoming;
+    if (expiredEl) expiredEl.innerText = ended;
 }
 
 function renderPromotionCards(promotions) {
-    const container = document.getElementById('promotionCardsContainer');
+    const container = document.getElementById('promoGrid');
+
+    if (!container) {
+        console.error('promoGrid container not found!');
+        return;
+    }
 
     if (promotions.length === 0) {
         container.innerHTML = '<p class="text-center">Chưa có khuyến mãi nào</p>';
         return;
     }
+
+    console.log('Rendering', promotions.length, 'promotions');
 
     container.innerHTML = promotions.map(promo => {
         const statusBadge = getPromotionStatusBadge(promo);

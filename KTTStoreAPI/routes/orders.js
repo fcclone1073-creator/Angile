@@ -52,46 +52,6 @@ router.put('/:id/status', async (req, res) => {
     }
 });
 
-<<<<<<< HEAD
-// @route   GET /api/orders/:id
-// @desc    Get order by ID
-// @access  Staff/Admin
-router.get('/:id', async (req, res) => {
-    try {
-        const order = await Order.findById(req.params.id).populate('userId', 'name email');
-        if (!order) {
-            return res.status(404).json({ msg: 'Order not found' });
-        }
-        res.json(order);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-});
-
-// @route   PUT /api/orders/:id/status
-// @desc    Update order status
-// @access  Staff/Admin
-router.put('/:id/status', async (req, res) => {
-    try {
-        const { status } = req.body;
-        const order = await Order.findById(req.params.id);
-        
-        if (!order) {
-            return res.status(404).json({ msg: 'Order not found' });
-        }
-
-        order.status = status;
-        order.updatedAt = new Date();
-        await order.save();
-
-        res.json(order);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-});
-
 // @route   POST /api/orders
 // @desc    Create new order
 // @access  Public
@@ -117,6 +77,4 @@ router.post('/', async (req, res) => {
     }
 });
 
-=======
->>>>>>> upstream/main
 module.exports = router;
