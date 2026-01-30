@@ -11,6 +11,8 @@ public class Product {
     private double rating;
     private boolean isFeatured;
     private String description;
+    @SerializedName("categoryId")
+    private String categoryId;
 
     public String getId() {
         return id;
@@ -38,5 +40,9 @@ public class Product {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
     }
 }
